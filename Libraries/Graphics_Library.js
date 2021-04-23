@@ -63,3 +63,21 @@ function text(message, x, y, mode) {
         ctx.strokeText(message, x, y)
     }
 }
+
+function ellipse(x, y, xR, yR, rot, mode) {
+    ctx.beginPath()
+    ctx.ellipse(x, y, xR, yR, rot, 0, 2 * Math.PI)
+    if (mode === "fill") {
+        ctx.fill()
+    } else if (mode === "stroke") {
+        ctx.stroke()
+    }
+}
+
+function drawImage(img, x, y, w, h) {
+    ctx.drawImage(img, x, y, w, h)
+}
+
+function ImageClip(img, xc, yc, wc, hc, x, y, w, h) {
+    ctx.drawImage(img, xc, yc, wc, hc, x, y, w, h)
+}
