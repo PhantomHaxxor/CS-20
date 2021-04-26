@@ -24,11 +24,11 @@ function DrawHouse() {
 function DrawTerrain() {
     fill("white");
     for (var i = 0; i <= 5; i++) { // Loop for Clouds
-        circle(i*150, 20, 100, "fill"); // Clouds
+        circle(i*150, 20, 100 + (Math.random() * 50), "fill"); // Clouds
     }
     fill("green");
     for (var i = 0; i <= 5; i++) { // Loop for Grass
-        circle(i*150, 650, 100, "fill"); // Grass
+        circle(i*150, 610 + (Math.random() * 50), 100, "fill"); // Grass
     }
 }
 
