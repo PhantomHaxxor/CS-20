@@ -5,22 +5,32 @@ var ctx = cnv.getContext('2d')
 cnv.width = 800
 cnv.height = 600
 
-
-
-
-function drawKnight(x, y, color) {
-    // Draw a Stickman with top-left corner (x, y)
-    var Helmet = document.createElement("img")
-    Helmet.src = "../../Images/helmet.png"
-    fill(color);
-    stroke(color);
-    drawImage(Helmet, x, y, 50, 50)
-    circle(x + 20, y + 20, 20, "fill"); // Head
-    line(x + 20, y + 40, x + 20, y + 80); // Body
-    line(x, y + 70, x + 20, y + 50); // Left Arm
-    line(x + 40, y + 70, x + 20, y + 50); // Right Arm
-    line(x, y + 110, x + 20, y + 80); // Left Leg
-    line(x + 40, y + 110, x + 20, y + 80); // Right Leg
+function DrawHouse() {
+    fill("brown");
+    triangle(600, 300, 200, 300, 400, 150, "fill") // Roof
+    fill("beige");
+    rect(250, 300, 300, 300, "fill") // House Box
+    fill("brown");
+    rect(275, 400, 100, 100, "fill") // Window Frame
+    rect(400, 400, 100, 300, "fill") // Door
+    fill("gold");
+    circle(425, 500, 10, "fill") // Door Knob
+    fill("blue");
+    rect(285, 412, 80, 80, "fill") // Window Pane
+    fill("brown");
+    rect(317.5, 400, 15, 100, "fill") // Window Bar
 }
 
-window.addEventListener("load", drawKnight(25,25, "red"))
+function DrawTerrain() {
+    fill("white");
+    for (var i = 0; i <= 5; i++) { // Loop for Clouds
+        circle(i*150, 20, 100, "fill"); // Clouds
+    }
+    fill("green");
+    for (var i = 0; i <= 5; i++) { // Loop for Grass
+        circle(i*150, 650, 100, "fill"); // Grass
+    }
+}
+
+window.addEventListener("load", DrawHouse)
+window.addEventListener("load", DrawTerrain)
