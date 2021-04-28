@@ -5,32 +5,32 @@ var ctx = cnv.getContext('2d')
 cnv.width = 800
 cnv.height = 600
 
-function DrawHouse() {
-    fill("brown");
-    triangle(600, 300, 200, 300, 400, 150, "fill") // Roof
+function DrawHouse(x, y) {
     fill("beige");
-    rect(250, 300, 300, 300, "fill") // House Box
+    rect(x, y, 300, 300, "fill") // House Box
     fill("brown");
-    rect(275, 400, 100, 100, "fill") // Window Frame
-    rect(400, 400, 100, 300, "fill") // Door
+    triangle(x + 350, y , x - 50, y , x + 150, y - 150, "fill") // Roof
+    fill("brown");
+    rect(x + 25, y + 100, 100, 100, "fill") // Window Frame
+    rect(x + 150, y + 100, 100, 300, "fill") // Door
     fill("gold");
-    circle(425, 500, 10, "fill") // Door Knob
+    circle(x + 175, y + 200, 10, "fill") // Door Knob
     fill("blue");
-    rect(285, 412, 80, 80, "fill") // Window Pane
+    rect(x + 35, y + 112, 80, 80, "fill") // Window Pane
     fill("brown");
-    rect(317.5, 400, 15, 100, "fill") // Window Bar
+    rect(x + 70.5, y + 100, 15, 100, "fill") // Window Bar
 }
 
-function DrawTerrain() {
+function DrawTerrain(x, y1, y2) {
     fill("white");
     for (var i = 0; i <= 5; i++) { // Loop for Clouds
-        circle(i*150, 20, 100 + (Math.random() * 50), "fill"); // Clouds
+        circle(i*x, y1, 100 + (Math.random() * 30), "fill"); // Clouds
     }
     fill("green");
     for (var i = 0; i <= 5; i++) { // Loop for Grass
-        circle(i*150, 610 + (Math.random() * 50), 100, "fill"); // Grass
+        circle(i*x, y2 + (Math.random() * 30), 100, "fill"); // Grass
     }
 }
 
-window.addEventListener("load", DrawHouse)
-window.addEventListener("load", DrawTerrain)
+window.addEventListener("load", DrawHouse(250, 300))
+window.addEventListener("load", DrawTerrain(150, 20, 610))
