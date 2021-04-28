@@ -9,12 +9,25 @@
   </head>
   <body>
       <h1 class="title">Formula Functions Assignment</h1>
+      <div class="centerDiv">
+        <h2 class="title">The Formula for Slope is: </h2>
+        <img src="images/formula.jpeg" width=200, height=100>
+      </div>
+      
       <table>
-        <h2>Input <input class="input1" type="number"> </input></h2>
-        <h2>Input <input class="input2" type="number"> </input></h2>
-        <h2>Input <input class="input3" type="number"> </input></h2>
+        <!-- The Inputs -->
+        <h2>Y2 <input id="Input_Y2" type="number"> </input></h2>
+        <h2>Y1 <input id="Input_Y1" type="number"> </input></h2>
+        <h2>X2 <input id="Input_X2" type="number"> </input></h2>
+        <h2>X1 <input id="Input_X1" type="number"> </input></h2>
+
+        <div class="centerDiv">
+          <button id="calculateBtn">Calculate Slope</button>
+        </div>
+        
       </table>
-      <h2>Output: <h2 class="output"></h2></h2>
+
+      <h2>Output: <h2 id="output"></h2></h2>
       <script src="main.js"></script>
   </body>
 </html>
