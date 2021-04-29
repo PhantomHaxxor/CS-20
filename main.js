@@ -35,4 +35,4 @@ window.addEventListener("load", CreatePlatforms(500, 250, "red", "blue"))
 // House Creation
 window.addEventListener("load", DrawHouse(90, 375, "white"))
 window.addEventListener("load", DrawHouse(275, 225, "aqua"))
-window.addEventListener("load", DrawHouse(550, 125, "white"))
+window.addEventListener("load", DrawHouse(550, 125, "beige"))
