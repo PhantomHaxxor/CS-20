@@ -32,16 +32,21 @@ function WindowResize() {
     height = Canvas.height = window.innerHeight
 }
 
+function Push() {
+    Snowflakes.push({
+        X: Math.random() * width,
+        Y: Math.random() * height,
+        Opacity: Math.random(),
+        Speed_X: Random(1, 5),
+        Speed_Y: Random(2, 10),
+        Radius: Random(0.5, 5)
+    })
+}
+
+
 function InitSnowflakes() {
     for (var i = 0; i < MaxSnowflakes; i++) {
-        Snowflakes.push({
-            X: Math.random() * width,
-            Y: Math.random() * height,
-            Opacity: Math.random(),
-            Speed_X: Random(1, 5),
-            Speed_Y: Random(2, 10),
-            Radius: Random(0.5, 5)
-        })
+        Push()
     }
 }
 
@@ -73,8 +78,20 @@ function UpdateSnowflakes() {
     MoveSnowflakes()
 }
 
+function OnKeyPress(Info) {
+    console.log(Info)
+    if (Info.code == "Backspace") { // Backspace Key
+        console.log("Snowflake Removed")
+        Snowflakes.pop()
+  
+    } else if (Info.code == "Space" || Info.code == "Enter") { // Space or Enter
+        console.log("Snowflake Added")
+        Push() 
+    }
+}
 // Initialize //
 
+window.addEventListener("keydown", OnKeyPress)
 window.addEventListener("resize", WindowResize)
 setInterval(UpdateSnowflakes, 50)
 InitSnowflakes() 
