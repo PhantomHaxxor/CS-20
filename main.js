@@ -1,38 +1,80 @@
-// Graphics
-var cnv = document.getElementById("Canvas")
-var ctx = cnv.getContext('2d')
-cnv.width = 800
-cnv.height = 600
+// Elements //
+var Canvas = document.getElementById("Canvas")
+var CanvasContext = Canvas.getContext("2d")
 
-function CreatePlatforms(x, y, GrassColor, DirtColor) {
-    fill(DirtColor);
-    rect(x, y, 200, 50, "fill")
-    fill(GrassColor);
-    rect(x, y - 25, 200, 25, "fill")
+// Variables //
+var MaxSnowflakes = 100
+
+var width = window.innerWidth
+var height = window.innerHeight
+
+Canvas.width = width
+Canvas.height = height
+
+var Snowflakes = []
+
+// Functions //
+
+function DrawCircle(X, Y, Radius, Opacity){
+    CanvasContext.beginPath()
+    CanvasContext.globalAlpha = Opacity
+    CanvasContext.arc(X, Y, Radius, 0, 2 * Math.PI)
+    CanvasContext.fillStyle = "white"
+    CanvasContext.fill()
 }
 
-function DrawHouse(x, y, HouseColor) {
-    fill(HouseColor);
-    rect(x, y, 100, 100, "fill") // House Box
-    fill("brown");
-    triangle(x + 120, y , x - 20, y , x + 50, y - 75, "fill") // Roof
-    fill("brown");
-    rect(x + 15, y + 50, 25, 25, "fill") // Window Frame
-    rect(x + 50, y + 40, 30, 60, "fill") // Door
-    fill("gold");
-    circle(x + 55, y + 75, 3, "fill") // Door Knob
-    fill("blue");
-    rect(x + 17.5, y + 52.5, 20, 20, "fill") // Window Pane
-    fill("brown");
-    rect(x + 25, y + 50, 5, 25, "fill") // Window Bar
+function Random(min, max) {
+   return min + Math.random() * (max - min + 1)
 }
 
-// Platform Creation 
-window.addEventListener("load", CreatePlatforms(5, 500, "green", "brown"))
-window.addEventListener("load", CreatePlatforms(250, 350, "blue", "white"))
-window.addEventListener("load", CreatePlatforms(500, 250, "red", "blue"))
+function WindowResize() {
+    width = Canvas.width = window.innerWidth
+    height = Canvas.height = window.innerHeight
+}
 
-// House Creation
-window.addEventListener("load", DrawHouse(90, 375, "white"))
-window.addEventListener("load", DrawHouse(275, 225, "aqua"))
-window.addEventListener("load", DrawHouse(550, 125, "beige"))
+function InitSnowflakes() {
+    for (var i = 0; i < MaxSnowflakes; i++) {
+        Snowflakes.push({
+            X: Math.random() * width,
+            Y: Math.random() * height,
+            Opacity: Math.random(),
+            Speed_X: Random(1, 5),
+            Speed_Y: Random(2, 10),
+            Radius: Random(0.5, 5)
+        })
+    }
+}
+
+function CreateSnowflakes() {
+    for (var i = 0; i < Snowflakes.length; i++) {
+        var Information = Snowflakes[i]
+        // Draw Circles to Display Snowflakes //
+        DrawCircle(Information.X, Information.Y, Information.Radius, Information.Opacity)
+    } 
+}
+
+function MoveSnowflakes() {
+    for (var i = 0; i < Snowflakes.length; i++) {
+        var Information = Snowflakes[i]
+ 
+        Information.X += Information.Speed_X 
+        Information.Y += Information.Speed_Y
+ 
+        if (Information.X > height) {
+             Information.X = Math.random() * width
+             Information.Y = -50 
+        }
+     }
+}
+
+function UpdateSnowflakes() {
+    CanvasContext.clearRect(0,0, width, height)
+    CreateSnowflakes()
+    MoveSnowflakes()
+}
+
+// Initialize //
+
+window.addEventListener("resize", WindowResize)
+setInterval(UpdateSnowflakes, 50)
+InitSnowflakes() 
