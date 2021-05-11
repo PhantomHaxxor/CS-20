@@ -79,11 +79,9 @@ function UpdateSnowflakes() {
 }
 
 function OnKeyPress(Info) {
-    console.log(Info)
     if (Info.code == "Backspace") { // Backspace Key
         console.log("Snowflake Removed")
         Snowflakes.pop()
-  
     } else if (Info.code == "Space" || Info.code == "Enter") { // Space or Enter
         console.log("Snowflake Added")
         Push() 
