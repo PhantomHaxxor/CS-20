@@ -25,19 +25,14 @@ function Random(min, max) {
 
 function start() {
   // Assign Button Events //
-
-  function GetInputValues() {
-    return [FirstNameInput.value,LastNameInput.value]
-  }
   
   function ReturnName(FirstName, randomTxt, LastName) {
     return FirstName + " " + randomTxt + " " + LastName
   }
 
   RandomNicknameBtn.addEventListener("click", function() {
-    var Inputs = GetInputValues()
-    var FirstName = Inputs[0]
-    var LastName = Inputs[1]
+    var FirstName = FirstNameInput.value
+    var LastName = LastNameInput.value
 
     if (FirstName == "" || LastName == "") {
       alert("Type in FirstName or LastName")
@@ -50,9 +45,8 @@ function start() {
   })
 
   AllNicknamesBtn.addEventListener("click", function() {
-    var Inputs = GetInputValues()
-    var FirstName = Inputs[0]
-    var LastName = Inputs[1]
+    var FirstName = FirstNameInput.value
+    var LastName = LastNameInput.value
 
     if (FirstName == "" || LastName == "") {
       alert("Type in FirstName or LastName")
