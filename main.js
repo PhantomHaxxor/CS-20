@@ -60,7 +60,7 @@ function start() {
     }
 
     var NicknameString = ""
-    for (i = 1; i < NicknamesArray.length; i++) {
+    for (i = 0; i < NicknamesArray.length; i++) {
       var Nickname = NicknamesArray[i]
       NicknameString += `<div>${ReturnName(FirstName, Nickname, LastName)}</div>`
     }
