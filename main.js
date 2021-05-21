@@ -142,7 +142,7 @@ function removeLow() {
   // Remove all accounts that are below $500.
   // Output how many accounts were removed.
   var AccountsRemoved = 0
-  for (let i = 0; i < accounts.length; i++) {
+  for (let i = accounts.length - 1; i >= 0; i--) {
     if (accounts[i] < 500) {
       accounts.splice(i, 1)
       AccountsRemoved++
