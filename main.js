@@ -169,7 +169,6 @@ function robinHood() {
     }
   }
 
-  console.log(TotalAmountTaken, AccountsUnder1000)
   var AverageAmountToGive = TotalAmountTaken / AccountsUnder1000
 
   for (let i = 0; i < accounts.length; i++) {
