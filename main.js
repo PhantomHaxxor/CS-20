@@ -164,14 +164,13 @@ function robinHood() {
     if (accounts[i] > 4000) {
       TotalAmountTaken += 400
       accounts[i] -= 400
-    }
-
-    if (accounts[i] < 1000) {
+    } else if (accounts[i] < 1000) {
       AccountsUnder1000++
     }
   }
 
-  var AverageAmountToGive = Math.floor(TotalAmountTaken / AccountsUnder1000)
+  console.log(TotalAmountTaken, AccountsUnder1000)
+  var AverageAmountToGive = TotalAmountTaken / AccountsUnder1000
 
   for (let i = 0; i < accounts.length; i++) {
     if (accounts[i] < 1000) {
