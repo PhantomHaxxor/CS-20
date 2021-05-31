@@ -1,15 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" dir="ltr">
+
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <title>drawing</title>
-    <link href="style.css" rel="stylesheet"/>
+    <title>Login</title>
+    <link rel="stylesheet" href="/style.css">
   </head>
+
   <body>
-      <h1>Setup Drawing</h1>
-    <canvas id="Canvas"></canvas>
-    <script src="Graphics_Library.js"></script> <!-- Finds the Graphics Library in Libraries Folder-->
-    <script src="main.js"></script>
+    <div class="login-box">
+      <h1><i class="fas fa-lock"></i> Login</h1>
+
+      <div class="textbox">
+        <i class="fas fa-user"></i>
+        <input type="text" placeholder="Username">
+      </div>
+
+      <div class="textbox">
+        <i class="fas fa-lock"></i>
+        <input type="password" placeholder="Password">
+      </div>
+
+      <input type="button" class="btn" value="Sign in">
+
+      <div class="links">
+        <a href="/HTML/forgetPassword.html">Forgot your password?</a>
+        <a href="#">Don't have an account?</a>
+      </div>
+    </div>
+
+    <script src="/JS/index.js"></script>
   </body>
+
 </html>
