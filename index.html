@@ -9,27 +9,28 @@
 
   <body>
     <div class="login-box">
-      <h1><i class="fas fa-lock"></i>Login</h1>
+
+      <h1><i class="fas fa-lock"></i> Login</h1>
 
       <div class="textbox">
         <i class="fas fa-user"></i>
-        <input type="text" placeholder="Username">
+        <input id="UsernameInput" type="text" placeholder="Username / Email">
       </div>
 
       <div class="textbox">
         <i class="fas fa-lock"></i>
-        <input type="password" placeholder="Password">
+        <input id="PasswordInput" type="password" placeholder="Password">
       </div>
 
-      <input type="button" class="btn" value="Sign in">
+      <input id="LoginButton" type="submit" class="btn" value="Sign in">
 
       <div class="links">
         <a href="/HTML/forgetPassword.html">Forgot your password?</a>
-        <a href="#">Don't have an account?</a>
+        <a href="/HTML/signup.html">Don't have an account?</a>
       </div>
     </div>
 
-    <script src="index.js"></script>
+    <script src="JS/Login.js"></script>
   </body>
 
 </html>
