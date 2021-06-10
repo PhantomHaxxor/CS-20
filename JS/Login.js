@@ -82,7 +82,7 @@ function Login() {
 
         })
         // Make user visit homepage //
-        // VisitHomepage()
+        VisitHomepage()
     } else {
         DebounceTimeout("Wrong Username/Email or Password")
     }

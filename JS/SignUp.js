@@ -48,11 +48,6 @@ function OnWindowLoad() {
     }
 }
 
-function ValidateEmail(Email) {
-    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(Email).toLowerCase());
-}
-
 function StoreData(Username, Password, Email) {
     console.log("Storing Data")
     var StringifiedArray = JSON.stringify({
@@ -97,7 +92,6 @@ function SignUp() {
     var ConfirmedPassword = ConfirmPasswordInput.value
     var Email = EmailInput.value
     
-
     // Check if Input is empty //
     if (Username === "" || Password === "" || ConfirmedPassword === "" || Email == "") {
         DebounceTimeout("All fields are required")

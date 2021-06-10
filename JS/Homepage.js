@@ -15,6 +15,20 @@ function ToggleNavBar() {
     navbarLinks.classList.toggle('active')
 }
 
+function GetRidOfData() {
+    console.log("Storing Data")
+    var StringifiedArray = JSON.stringify({
+        AccountCreated: false,
+        SignedIn: false,
+        Username: null,
+        Password: null,
+    })
+
+    console.log("Storing Data: " + StringifiedArray)
+    localStorage.setItem("LoginData", StringifiedArray)
+}
+
+
 // Big Functions //
 function OnWindowLoad() {
     // Runs when window loads and logs out a user if they wern't signed in //
@@ -31,6 +45,12 @@ function OnWindowLoad() {
 
 function Logout() {
     console.log("Log out")
+
+    // Make user logout by getting rid of their current data //
+    if (Settings.LoginData == null || Settings.LoginData.AccountCreated == false) {
+        Logout()
+    }
+
 
 }
 

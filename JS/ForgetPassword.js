@@ -23,11 +23,6 @@ var Settings = {
     IsOnReset: false,
 }
 
-function ValidateEmail(Email) {
-    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(Email).toLowerCase());
-}
-
 function GenerateCode(count) {
     var chars = 'acdefhiklmnoqrstuvwxyz0123456789'.split('');
     var result = '';
