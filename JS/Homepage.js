@@ -1,5 +1,3 @@
-
-
 var LogoutBtn = document.getElementsByClassName("LogoutBtn")[0]
 var toggleButton = document.getElementsByClassName('toggle-button')[0]
 var navbarLinks = document.getElementsByClassName('navbar-links')[0]
@@ -15,15 +13,11 @@ function ToggleNavBar() {
     navbarLinks.classList.toggle('active')
 }
 
-function GetRidOfData() {
+function RemoveSignedIn() {
     console.log("Storing Data")
-    var StringifiedArray = JSON.stringify({
-        AccountCreated: false,
-        SignedIn: false,
-        Username: null,
-        Password: null,
-    })
 
+    Settings.LoginData.SignedIn = false
+    var StringifiedArray = JSON.stringify(Settings.LoginData)
     console.log("Storing Data: " + StringifiedArray)
     localStorage.setItem("LoginData", StringifiedArray)
 }
@@ -47,11 +41,11 @@ function Logout() {
     console.log("Log out")
 
     // Make user logout by getting rid of their current data //
-    if (Settings.LoginData == null || Settings.LoginData.AccountCreated == false) {
-        Logout()
+    if (Settings.LoginData && Settings.LoginData.AccountCreated == true) {
+        RemoveSignedIn()
     }
 
-
+    window.location.href = window.location.origin
 }
 
 // Event Listeners //

@@ -20,6 +20,16 @@ function GetRegisteredInfo() {
     ]
 }
 
+function SignUserIn() {
+    console.log("Storing Data")
+
+    Settings.LoginData.SignedIn = true
+    var StringifiedArray = JSON.stringify(Settings.LoginData)
+    console.log("Storing Data: " + StringifiedArray)
+    localStorage.setItem("LoginData", StringifiedArray)
+}
+
+
 function DebounceTimeout(text, callback) {
     LoginButton.value = text
     Settings.Debounce = true
@@ -53,7 +63,7 @@ function OnWindowLoad() {
     }
 
     // Check if the user was signed in previously //
-    if (Settings.LoginData.SignedIn == true) {
+    if (Settings.LoginData.SignedIn == true && Settings.LoginData.AccountCreated == true) {
         // Make player visit the main page //
         VisitHomepage()
         return
@@ -79,10 +89,10 @@ function Login() {
     // Check if the Login information matches the stored information //
     if ((Username == StoredUsername || Username == StoredEmail) && Password == StoredPassword) {
         DebounceTimeout("Sign in successful", () => {
-
+            // Make user visit homepage //
+            SignUserIn()
+            VisitHomepage()
         })
-        // Make user visit homepage //
-        VisitHomepage()
     } else {
         DebounceTimeout("Wrong Username/Email or Password")
     }
