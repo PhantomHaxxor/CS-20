@@ -5,12 +5,6 @@ var CanvasContext = Canvas.getContext("2d")
 // Variables //
 var MaxSnowflakes = 100
 
-var width = window.innerWidth
-var height = window.innerHeight
-
-Canvas.width = width
-Canvas.height = height
-
 var Snowflakes = []
 
 // Functions //
@@ -28,8 +22,12 @@ function Random(min, max) {
 }
 
 function WindowResize() {
-    width = Canvas.width = window.innerWidth
-    height = Canvas.height = window.innerHeight
+    width = window.innerWidth
+    height = window.innerHeight
+    console.log(width, height)
+    
+    Canvas.width = width
+    Canvas.height = height
 }
 
 function Push() {
@@ -92,4 +90,5 @@ function OnKeyPress(Info) {
 window.addEventListener("keydown", OnKeyPress)
 window.addEventListener("resize", WindowResize)
 setInterval(UpdateSnowflakes, 50)
+WindowResize()
 InitSnowflakes() 
