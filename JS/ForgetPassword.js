@@ -124,13 +124,9 @@ function EnterCode() {
     var InputCode = CodeInput.value
 
     if (Code === InputCode) {
-        EmailContainer.classList.remove("show")
-        EmailSentContainer.classList.remove("show")
-        CodeContainer.classList.remove("show")
-
-        EmailContainer.classList.add("hide")
-        EmailSentContainer.classList.add("hide")
-        CodeContainer.classList.add("hide")
+        EmailContainer.classList.replace("show", "hide")
+        EmailSentContainer.classList.replace("show", "hide")
+        CodeContainer.classList.replace("show", "hide")
 
         ResetContainer.classList.remove("hide")
 

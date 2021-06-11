@@ -17,18 +17,38 @@
       </a>
       <div class="navbar-links">
         <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#FindMusic">Find Music</a></li>
+          <li><a class="currentNav" href="homepage.html">Home</a></li>
+          <li><a href="settings.html">Settings</a></li>
           <li><a href="javascript:Logout()" class="LogoutBtn">Log Out</a></li>
         </ul>
       </div>
     </nav>
 
-    <div>
-      <h1>Welcome to Eternal Music</h1>
-    </div>
+    <h1 class="Header">Welcome to Eternal Music</h1>
 
-
+    <div class="player-container">
+      <!-- Song -->
+      <div class="img-container">
+          <img src="" alt="" id="cover" class="active">
+      </div>
+      <h2 id="title"></h2>
+      <h3 id="artist"></h3>
+      <audio src=""></audio>
+      <!-- Progress -->
+      <div class="progress-container" id="progress-container">
+          <div class="progress" id="progress"></div>
+          <div class="duration-wrapper">
+              <span id="current-time"></span>
+              <span id="duration"></span>
+          </div>
+      </div>
+      <!-- Controls -->
+      <div class="player-controls">
+          <i class="fas fa-backward" id="prev" title="Previous"></i>
+          <i class="fas fa-play main-button" id="play" title="Play"></i>
+          <i class="fas fa-forward" id="next" title="Next"></i>
+      </div>
+  </div>
 
     <script src="/JS/Homepage.js"></script>
   </body>
