@@ -87,28 +87,26 @@ function Logout() {
 }
 
 var updateBar = function (x, vol) {
-   var volume = e;
-        var percentage;
-        //if only volume have specificed
-        //then direct update volume
-        if (vol) {
-            percentage = vol * 100;
-        } else {
-            var position = x - volume.offsetLeft;
-            percentage = 100 * position / volume.clientWidth;
-        }
+    var volume = e;
+    var percentage;
+    if (vol) {
+        percentage = vol * 100;
+    } else {
+        var position = x - volume.offsetLeft;
+        percentage = 100 * position / volume.clientWidth;
+    }
 
-        if (percentage > 100) {
-            percentage = 100;
-        }
-        if (percentage < 0) {
-            percentage = 0;
-        }
+    if (percentage > 100) {
+        percentage = 100;
+    }
+    if (percentage < 0) {
+        percentage = 0;
+    }
 
-        //update volume bar and video volume
-        eInner.style.width = percentage +'%';
-        VolumeAmount.innerText = "Volume: " + Math.floor(percentage) +'%'
-        music.volume = percentage / 100;
+    //update volume bar and video volume
+    eInner.style.width = percentage +'%';
+    VolumeAmount.innerText = "Volume: " + Math.floor(percentage) +'%'
+    music.volume = percentage / 100;
 };
 
 // Play

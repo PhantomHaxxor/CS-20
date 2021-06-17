@@ -27,10 +27,7 @@ body {
   background-color: rgb(175, 3, 3);
 }
 .LogoutBtn:hover {
-  background-color: rgb(192, 0, 0);
-}
-.currentNav {
-  background-color: rgb(158, 158, 158);
+  filter: brightness(110%);
 }
 
 .navbar {
