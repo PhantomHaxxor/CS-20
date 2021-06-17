@@ -7,12 +7,13 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: rgb(223, 223, 223);
-  height: 2000px;
+  background-color: rgb(0, 110, 255);
+  height: 100%;
 }
 
 .Header {
   text-align: center;
+  color: white;
 }
 .MusicDiv {
   width: 90vw;
@@ -131,11 +132,11 @@ body {
 .player-container {
   margin: auto;
   margin-top: 100px;
-  height: 500px;
+  height: 50%;
   width: 400px;
-  background: #e7e7e7;
+  background: linear-gradient(to bottom, #ffffff,rgb(161, 161, 161));
   border-radius: 20px;
-  box-shadow: 0 15px 30px 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 15px 30px 5px rgba(4, 140, 230, 0.603);
 }
 
 .img-container {
@@ -166,7 +167,6 @@ body {
   height: 100%;
 }
 
-
 h2 {
   font-size: 25px;
   text-align: center;
@@ -191,7 +191,7 @@ h3 {
 }
 
 .progress {
-background: linear-gradient(to right, #ee0979, #ff6a00);
+background: linear-gradient(to right, #0099ff, #00c3ff);
   border-radius: 5px;
   height: 100%;
   width: 0%;
@@ -216,18 +216,35 @@ background: linear-gradient(to right, #ee0979, #ff6a00);
 
 .fas {
   font-size: 30px;
-  color: rgb(129, 129, 129);
+  color: rgb(0, 110, 255);
   margin-right: 30px;
   cursor: pointer;
   user-select: none;
 }
 
 .fas:hover {
-  filter: brightness(80%);
+  filter: brightness(110%);
 }
 
 .main-button {
   font-size: 40px;
   position: relative;
   top: 3px;
+}
+
+.volume-slider-div{
+  background: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 40px 20px;
+  height: 4px;
+  width: 90%;
+  border-radius: 1px;
+}
+
+.volume-slider{
+   height:100%;
+   width:100%;
+   background: linear-gradient(to right, #0099ff, #00c3ff);
+   position: relative;
 }
