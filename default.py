@@ -28,7 +28,7 @@ else:
 
 Q3_Answer = input("What is the smallest planet in our solar system? ")
 
-if Q3_Answer == "Mercury":
+if str.lower(Q3_Answer) == "mercury":
     print("Correct!")
     CurrentScore += 1
 else:
@@ -42,14 +42,17 @@ if str.lower(Q4_Answer) == "h2o":
 else:
     print("Incorrect")
 
-print(CurrentScore)
+Percentage_Decimal = CurrentScore/4
+Percentage = Percentage_Decimal * 100
+
+print("You got " + str(CurrentScore) + "/4 (" + str(Percentage) + "%) questions right")
 
 if CurrentScore == 1:
-    print("You got 1/4 | You need to study more")
+    print("You need to study more")
 elif CurrentScore == 2:
-    print("You got 2/4 | You're halfway there!")
+    print("You're halfway there!")
 elif CurrentScore == 3:
-    print("You got 3/4, Nice!")
+    print("Nice!")
 elif CurrentScore == 4:
-      print("You got 4/4, Congratulations!")  
+      print("Congratulations!")  
 
