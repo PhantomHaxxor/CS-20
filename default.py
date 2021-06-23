@@ -1,58 +1,52 @@
-import math
+# libraries
+import random
 
-# Quiz
+loop = True
 
-CurrentScore = 0
+def Roll_Dice(times):
+    if times == "Until Snake Eyes":
+        loop = True
+        RollNum = 1
+        while loop:
+            First_Die = random.randrange(1, 6)
+            Second_Die = random.randrange(1, 6)
+            
+            print("First Die Rolled: " + str(First_Die) + " The Second Die Rolled: " + str(Second_Die))
+            RollNum += 1
 
-# Question 1
+            if First_Die == 1 and Second_Die == 1:
+                loop = False
+                print("Snake Eyes! It took: " + str(RollNum) + " rolls to get Snake Eyes!")
+    else:
+        loop = 1
+        while loop <= times:
+            First_Die = random.randrange(1, 6)
+            Second_Die = random.randrange(1, 6)
+            
+            print("First Die Rolled: " + str(First_Die) + " The Second Die Rolled: " + str(Second_Die))
 
-Q1_Answer = input("What is 2 + 2? ")
+            loop += 1
+    
+while loop:
+    print("Dice Roll Simulator Menu")
+    print("1. Roll Dice Once")
+    print("2. Roll Dice 5 Times")
+    print("3. Roll Dice ‘n’ Times")
+    print("4. Roll Dice until Snake Eyes")
+    print("5. Exit")
+    print("Select an option from the menu (1-5):")
 
-if int(Q1_Answer) == 4:
-    print("Correct!")
-    CurrentScore += 1
-else:
-    print("Incorrect")
+    Selected = int(input("Enter Selection (1-5): "))
 
-# Question 2
-
-Q2_Answer = input("What is 5^2? ")
-
-if int(Q2_Answer) == math.pow(5, 2):
-    print("Correct!")
-    CurrentScore += 1
-else:
-    print("Incorrect")
-
-# Question 3
-
-Q3_Answer = input("What is the smallest planet in our solar system? ")
-
-if str.lower(Q3_Answer) == "mercury":
-    print("Correct!")
-    CurrentScore += 1
-else:
-    print("Incorrect")
-
-Q4_Answer = input("What is the scientific name for water? ")
-
-if str.lower(Q4_Answer) == "h2o":
-    print("Correct!")
-    CurrentScore += 1
-else:
-    print("Incorrect")
-
-Percentage_Decimal = CurrentScore/4
-Percentage = Percentage_Decimal * 100
-
-print("You got " + str(CurrentScore) + "/4 (" + str(Percentage) + "%) questions right")
-
-if CurrentScore == 1:
-    print("You need to study more")
-elif CurrentScore == 2:
-    print("You're halfway there!")
-elif CurrentScore == 3:
-    print("Nice!")
-elif CurrentScore == 4:
-      print("Congratulations!")  
-
+    if Selected == 1:
+        Roll_Dice(1)
+    elif Selected == 2:
+        Roll_Dice(5)
+    elif Selected == 3:
+        times = int(input("Enter how many times to roll the Dice "))
+        Roll_Dice(times)
+    elif Selected == 4:
+        Roll_Dice("Until Snake Eyes")
+    elif Selected == 5:
+        print("Exited from Dice Roll Simulator Menu")
+        loop = False
