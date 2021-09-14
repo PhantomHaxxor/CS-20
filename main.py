@@ -1,42 +1,32 @@
-import mathLib
+import requests
 
-Enabled = True
+username = input("What is your ROBLOX Name")
+req = requests.post(
+    url = "https://users.roblox.com/v1/usernames/users",
+    data =  {
+        "usernames": [
+            username
+        ],
+        "excludeBannedUsers": False
+    }
+)
+userData = req.json()
+user_id = userData["data"]
+print(user_id)
 
-def checkIfInt(x, y):
-    try:
-        aValue = int(x)
-        bValue = int(y)
-        return True, aValue, bValue
-    except:
-        print("Please Enter A Number")
-        return False
+user_req = requests.get(f"https://users.roblox.com/v1/users/{user_id}")
+user_data = user_req.json()
 
-while Enabled:
-    print("Welcome to a Calculator")
-    print("Please input your action")
-    print("1 - Add")
-    print("2 - Subtract")
-    print("3 - Multiply")
-    print("4 - Pythagorean Theorum")
+print("Name:", user_data["name"])
+print("Display Name:", user_data["displayName"])
+print("User ID:", user_data["id"])
+print("Description:")
+print(user_data["description"])
 
-    inputVal = input("Input Number: ")
-    try:
-        inputVal = int(inputVal)
-    except:
-        print("Please Enter A Number")
+user_friend_req = requests.get(f"https://friends.roblox.com/v1/users/{user_id}/friends")
+user_friend_data = user_friend_req.json()
 
-    aValue = input("Enter the \"A\" value: ")
-    bValue = input("Enter the \"B\" value: ") 
+friend_data = user_friend_data["data"]
 
-    state, a, b = checkIfInt(aValue, bValue)
-    if state == False:
-        continue
-
-    if inputVal == 1:
-        mathLib.add(a, b)
-    elif inputVal == 2:
-        mathLib.subtract(a, b)
-    elif inputVal == 3:
-        mathLib.multiply(a, b)
-    elif inputVal == 4:
-        mathLib.pythagorean(a, b)
+for i in friend_data:
+    print(i["name"])
