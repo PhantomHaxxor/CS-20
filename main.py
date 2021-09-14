@@ -1,25 +1,15 @@
-import math
+import mathLib
 
 Enabled = True
 
-def pythagorean():
-    print("Welcome to Pythagorean Theorum Calculator")
-    aValue = input("Enter the \"A\" value")
-    bValue = input("Enter the \"B\" value") 
-
+def checkIfInt(x, y):
     try:
-        aValue = int(aValue)
-        bValue = int(bValue)
-       
-        def calculate(a, b):
-            aSquared = a**2
-            bSquared = b**2
-           
-            return round(math.sqrt(aSquared + bSquared))
-        print(calculate(aValue, bValue))
+        aValue = int(x)
+        bValue = int(y)
+        return True, aValue, bValue
     except:
         print("Please Enter A Number")
-
+        return False
 
 while Enabled:
     print("Welcome to a Calculator")
@@ -30,18 +20,23 @@ while Enabled:
     print("4 - Pythagorean Theorum")
 
     inputVal = input("Input Number: ")
-
     try:
         inputVal = int(inputVal)
     except:
         print("Please Enter A Number")
 
-    if inputVal == 1:
-        print("WIP 1")
-    elif inputVal == 2:
-        print("WIP 2")
-    elif inputVal == 3:
-        print("WIP 3")
-    elif inputVal == 4:
-        pythagorean()
+    aValue = input("Enter the \"A\" value: ")
+    bValue = input("Enter the \"B\" value: ") 
 
+    state, a, b = checkIfInt(aValue, bValue)
+    if state == False:
+        continue
+
+    if inputVal == 1:
+        mathLib.add(a, b)
+    elif inputVal == 2:
+        mathLib.subtract(a, b)
+    elif inputVal == 3:
+        mathLib.multiply(a, b)
+    elif inputVal == 4:
+        mathLib.pythagorean(a, b)
