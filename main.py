@@ -1,6 +1,5 @@
 import requests
 
-
 Enabled = True
 
 def GetOutfitsFromUserId(user_id):
@@ -12,6 +11,7 @@ def GetOutfitsFromUserId(user_id):
         response["data"] = request.json()["data"]
     else:
         response["status"] = False
+
     return response
 
 def GetFriendsFromUserId(user_id):
@@ -41,14 +41,7 @@ def GetUserIdFromUsername(username):
 
     if request.status_code == 200:
         data_table = request.json()["data"]
-
-        if data_table == None:
-            response["status"] = False
-        if data_table == None:
-            response["status"] = False
-        print(data_table[0])
-
-        if data_table[0]: 
+        if len(data_table) == 1: 
             response["status"] = True
             response["data"] = data_table[0]['id']
     else:
@@ -77,6 +70,7 @@ while Enabled:
         print(username + " does not have any friends")
     else:
         print("Here is your ROBLOX friends list: \n")
+        print("You have a total of {total_friends} friends".format(total_friends = len(friends_data)))
         for i in friends_data:
             print("Username: {username}, UserId: {userid}".format(username = i["name"], userid = i["id"]))
 
@@ -89,10 +83,7 @@ while Enabled:
         print("Error Getting Outfits Data, please retry \n")
         continue
     outfit_data = outfitsResponse["data"]
-    
     print("\nHere is your Outfit Data\n")
     for i in outfit_data:
         print("Outfit Name: {outfit_name}".format(outfit_name = i["name"]))
-    print("\n")
-
     
