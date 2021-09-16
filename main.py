@@ -37,7 +37,6 @@ def GetUserIdFromUsername(username):
         }
     )
     response = dict()
-    response["status"] = False
 
     if request.status_code == 200:
         data_table = request.json()["data"]
