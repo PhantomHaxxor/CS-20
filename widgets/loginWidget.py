@@ -2,21 +2,21 @@ from tkinter import *
 from tkinter import messagebox
 import database
 
-current_database = database.new()
-
-
+current_database = database.currentDatabase
 
 class new(Tk):
-    def __init__(self):
+    def __init__(self, loginSuccess):
         super().__init__()
 
         self.geometry("300x100")
         self.resizable(0, 0) 
         self.title('Login')
-        self.iconbitmap(default="icon.ico")
+        self.iconbitmap("icons/loginWidget.ico")
         
         self.columnconfigure(0, weight=1)
         self.columnconfigure(1, weight=3)
+
+        self.loginCallback = loginSuccess
 
         self.createWidget() # creates the login widget
 
@@ -58,7 +58,8 @@ class new(Tk):
     def attemptRegister(self, username, password):
         success = current_database.attemptRegister(username, password)
         if success == True:
-            print("yay you have been registered")
+            messagebox.showinfo("Registered", "You have successfully registered as " + username)
+            self.loginCallback(current_database.get(username))
         elif success == "EMPTY":
             messagebox.showerror("Failed", "Username or Password cannot be empty")
         else:
@@ -66,7 +67,13 @@ class new(Tk):
 
     def attemptLogin(self, username, password):
         success = current_database.attemptLogin(username, password)
-        if success == False:
+        if success == True:
+            messagebox.showinfo("Logged in", "You have successfully Logged in as " + username)
+            self.loginCallback(current_database.get(username))
+        elif success == False:
             messagebox.showerror("Failed", "Wrong Username or Password")
         elif success == "EMPTY":
             messagebox.showerror("Failed", "Username or Password cannot be empty")
+
+    def destroyWindow(self):
+        self.destroy()
