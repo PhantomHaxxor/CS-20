@@ -1,14 +1,17 @@
 import sys
 sys.path.append("widgets")
-
 import loginWidget
 import pageWidget
 
 currentForm = None
 
-shouldLogin = True
-loginUsername = "a"
+shouldAutoLogin = True
+loginUsername = "aa"
 loginPassword = "aaa"
+
+def autoLogin():
+   if currentForm.doesAccountExist(loginUsername):
+        currentForm.attemptLogin(loginUsername, loginPassword)
 
 def loginSuccess(accountData):
     global currentForm
@@ -18,10 +21,12 @@ def loginSuccess(accountData):
 def createLoginWidget():
     global currentForm
     currentForm = loginWidget.new(loginSuccess)
-    currentForm.mainloop()
+    
+    if shouldAutoLogin:
+        autoLogin()
 
-    if shouldLogin:
-        currentForm.attemptLogin(loginUsername, loginPassword)
+    currentForm.mainloop()
 
 if __name__ == "__main__":
     createLoginWidget()
+

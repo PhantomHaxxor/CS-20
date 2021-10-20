@@ -5,7 +5,7 @@ class new(Tk):
     def __init__(self, accountData):
         super().__init__()
 
-        self.geometry("300x100")
+        self.geometry("512x512")
         self.resizable(0, 0) 
         self.title('Home Page')
         self.iconbitmap("icons/pageWidget.ico")
@@ -18,9 +18,6 @@ class new(Tk):
 
         user_label = Label(self, text="Logged in as: " + self.accountData['username'])
         user_label.grid(column=0, row=0, sticky=NW, padx=5, pady=5)
-
-
-
 
 
     def destroyWindow(self):

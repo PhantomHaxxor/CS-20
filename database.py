@@ -1,11 +1,10 @@
 import json
 import uuid
 
-class new():
+class database():
     def __init__(self):
         with open('data.json') as json_file:
             self.data = json.load(json_file)
-            print(type(self.data))
 
     def get(self, key):
         return self.data[key]
@@ -46,4 +45,5 @@ class new():
         
         return False
 
-currentDatabase = new()
+currentDatabase = database()
+

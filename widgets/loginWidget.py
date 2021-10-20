@@ -68,12 +68,15 @@ class new(Tk):
     def attemptLogin(self, username, password):
         success = current_database.attemptLogin(username, password)
         if success == True:
-            messagebox.showinfo("Logged in", "You have successfully Logged in as " + username)
+            messagebox.showinfo("Logged in", "You have successfully logged in as " + username)
             self.loginCallback(current_database.get(username))
         elif success == False:
             messagebox.showerror("Failed", "Wrong Username or Password")
         elif success == "EMPTY":
             messagebox.showerror("Failed", "Username or Password cannot be empty")
+
+    def doesAccountExist(self, username):
+        return current_database.doesAccountExist(username)
 
     def destroyWindow(self):
         self.destroy()
