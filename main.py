@@ -6,8 +6,8 @@ import pageWidget
 currentForm = None
 
 shouldAutoLogin = True
-loginUsername = "aa"
-loginPassword = "aaa"
+loginUsername = "Test123"
+loginPassword = "Test123"
 
 def autoLogin():
    if currentForm.doesAccountExist(loginUsername):
@@ -29,4 +29,3 @@ def createLoginWidget():
 
 if __name__ == "__main__":
     createLoginWidget()
-

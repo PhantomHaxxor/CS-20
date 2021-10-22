@@ -1,5 +1,4 @@
 from tkinter import *
-from tkinter import messagebox
 
 class new(Tk):
     def __init__(self, accountData):
