@@ -19,6 +19,5 @@ class new(Tk):
         user_label = Label(self, text="Logged in as: " + self.accountData['username'])
         user_label.grid(column=0, row=0, sticky=NW, padx=5, pady=5)
 
-
     def destroyWindow(self):
         self.destroy()
