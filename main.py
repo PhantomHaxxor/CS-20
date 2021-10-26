@@ -5,7 +5,7 @@ import pageWidget
 
 currentForm = None
 
-shouldAutoLogin = True
+shouldAutoLogin = False
 loginUsername = "Test123"
 loginPassword = "Test123"
 
