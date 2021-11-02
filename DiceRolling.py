@@ -6,7 +6,6 @@ def rollDice():
     print("Dice Rolled: " + str(random.randint(1, 6)))
     print("-----------------------------------")
 
-
 if __name__ == "__main__":
     while True:
 
