@@ -4,7 +4,6 @@ import loginWidget
 import pageWidget
 
 currentWidget = None
-
 shouldAutoLogin = False
 loginUsername = "Test123"
 loginPassword = "Test123"
@@ -16,10 +15,13 @@ def autoLogin():
 def loginSuccess(accountData):
     global currentWidget
     currentWidget.destroyWindow()
-    currentWidget = pageWidget.new(accountData)
+    currentWidget = pageWidget.new(accountData, createLoginWidget)
 
 def createLoginWidget():
     global currentWidget
+    if currentWidget is not None:
+        currentWidget.destroyWindow()
+
     currentWidget = loginWidget.new(loginSuccess)
     
     if shouldAutoLogin:
