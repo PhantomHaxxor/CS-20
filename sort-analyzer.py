@@ -37,12 +37,15 @@ fewUniqueData = loadDataArray("data-files/few-unique-values.txt")
 #                 anArray[j], anArray[j+1] = anArray[j+1], anArray[j]
 
 # def selectionSort(anArray):
+#     count = 0
 #     for i in range(len(anArray) - 1):
 #         minPosition = i
 #         for j in range(i+1, len(anArray)):
 #             if anArray[j] < anArray[minPosition]:
 #                 minPosition = j
+#                 count += 1
 #         anArray[i], anArray[minPosition] = anArray[minPosition], anArray[i]
+#     return count
 
 def insertionSort(anArray):
     count = 0
@@ -54,16 +57,20 @@ def insertionSort(anArray):
             insertPos -= 1
             count += 1
         anArray[insertPos] = insertValue
-
-    print(count)
+    return count
         
 def TimedSort(sortFunc, anArray):
     startTime = time.time()
-    sortFunc(anArray)
+    count = sortFunc(anArray)
     endTime = time.time()
-    return endTime - startTime
+    return endTime - startTime, count
 
-print(f"Random Data Took: { TimedSort(insertionSort, randomData) } seconds") 
-print(f"Reversed Data Took: { TimedSort(insertionSort, reversedData) } seconds") 
-print(f"Nearly Sorted Data Took: { TimedSort(insertionSort, nearlySortedData) } seconds") 
-print(f"Few Unique Data Took: { TimedSort(insertionSort, fewUniqueData) } seconds")
+def doSort(sortFunc, array):
+    timeTaken, count = TimedSort(sortFunc, array)
+    print("{0:<25} {1:>10} {2:>10}".format(sortFunc.__name__, count, timeTaken))
+
+doSort(insertionSort, randomData)
+doSort(insertionSort, reversedData) 
+doSort(insertionSort, nearlySortedData)
+doSort(insertionSort, fewUniqueData)
+
