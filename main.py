@@ -1,4 +1,8 @@
 import grid
 
-grid = grid.create()
-print(grid)
+Root, Grid = grid.create()
+print(Root)
+Root.mainloop()
+
+
+
