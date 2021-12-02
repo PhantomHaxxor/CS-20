@@ -22,12 +22,13 @@ def create():
     center.grid_rowconfigure(0, weight=1)
     center.grid_columnconfigure(1, weight=1)
 
+
     for x in range(gridSize['X']):
         grid[x] = {}
         for y in range(gridSize['Y']):
             cell = Frame(center, bg='white', highlightbackground="black",
                         highlightcolor="black", highlightthickness=1,
-                        width=100/x, height=100/y,  padx=3,  pady=3)
+                        width=25, height=25,  padx=3,  pady=3)
             cell.grid(row=x, column=y)
             grid[x][y] = 0
 
