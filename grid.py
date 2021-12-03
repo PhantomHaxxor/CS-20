@@ -2,8 +2,8 @@ from tkinter import *
 
 
 gridSize = {
-    'X': 100,
-    'Y': 100
+    'X': 49,
+    'Y': 49
 }
 grid = {}
 
