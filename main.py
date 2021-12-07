@@ -1,162 +1,157 @@
+#!/usr/bin/python
 import tkinter as tk
-import math
-import time
+from threading import Thread
+from random import random
+from astar import *
 
-WIDTH = 20
+# two points as user input (source cell and destination cell)
+points = 2
 
-root = tk.Tk()
-node_frame = tk.Frame(root).grid(row = 0, column = 0)
-menu_frame = tk.Frame(root).grid(row = 1, column = 0)
-root.config(bg = "black")
-node_styling = {"bg": "#1c1b1a", "fg": "yellow", "relief": tk.FLAT}
-font = ("Helvetica", 15, "bold")
+# windows size (height x width)
+height = 500
+width = 500
 
-class Node:
-    clicks = 0
-    start_node = None
-    end_node = None
-    
-    __slots__ = ['button','row', 'column', 'parent',
-     'heuristic', 'Gcost', 'Fcost', 'start', 'end', 'barrier']
-    
-    def __init__(self, column, row):
-        
-        self.button = tk.Button(node_frame,
-         width = 2,
-         height = 1,
-         command = lambda a=row, b=column: self.click(a, b),
-         cnf = node_styling
-        )
-        
-        self.button.grid(row = row, column = column, padx = 1, pady = 1)
-        
-        self.column = column
-        self.row = row
-        self.parent = None
-        self.heuristic = 0
-        self.Gcost = 0
-        self.Fcost = self.Gcost + self.heuristic
-        self.start = False
-        self.end = False
-        self.barrier = False
- 
-    def click(self, row, column):
-        Node.clicks += 1
-        if Node.clicks == 1:   
-            self.button.config(bg = "green")
-            self.start = True
-            Node.start_node = (self.column, self.row)
-        elif Node.clicks == 2:
-            self.button.config(bg = "red")
-            self.end = True
-            Node.end_node = (self.column, self.row)
-        else :
-            self.button.config(bg = "black")
-            self.barrier = True
-    
-    def get_distance(self, node_b):
-        '''
-        returns the distance between two nodes (10 for horizontal, 14 vertical)
-        '''
-        node_b = node_b
-        x = abs(self.column - node_b.column)
-        y = abs(self.row - node_b.row)
+# size of each cell(in pixels) in grid
+pixel = 10
 
-        if x > y:
-            return (14*y + 10*(x - y))
-        return (14*x + 10*(y - x))
+# grid (rows x cols)
+rows = height // pixel
+cols = width // pixel
 
-    def neighbours(self):
-        '''
-        finds neighbours of the given node (current node)
-        '''
-        neighbours = []
-        x, y = self.column, self.row
-        for a in range(x - 1, x + 2):
-            if a < 0 or a > 19:
-                continue
-            for b in range(y - 1, y + 2):
-                if b < 0 or b > 19:
-                    continue
-                neighbours.append(node_list[a][b])
-        
-        neighbours.remove(node_list[x][y])
-        return neighbours
+# show open and closed list
+showoc = True
 
-    @staticmethod
-    def pathfinding():
-        '''
-        The A* pathfinding fucntion
-        '''
-        OPEN = []
-        CLOSED = []
-        xe,ye = Node.end_node
-        xs, ys = Node.start_node
-        OPEN.append(node_list[xs][ys])
+# walls 0 <= x < 1
+walldensity = 0.3
+
+class returnableThread(Thread):
+    def __init__(self, group=None, target=None, name=None,
+                 args=(), kwargs={}):
+        Thread.__init__(self, group, target, name, args, kwargs)
+        self._return = None
+    def run(self):
+        if self._Thread__target is not None:
+            self._return = self._Thread__target(*self._Thread__args,
+                                                **self._Thread__kwargs)
+    def join(self):
+        Thread.join(self)
+        return self._return
+
+class Node(object):
+    def __init__(self, i, j, walldens=0.2):
+        self.i = i
+        self.j = j
+        self.x = i*pixel + pixel//2
+        self.y = j*pixel + pixel//2
+
+        self.f = 0
+        self.g = 0
+        self.h = 0
+
+        self.neighbors = []
+        self.previous = None
+        self.wall = False
+
+        if random() < walldens:
+            self.wall = True
+
+    def show(self, **kwargs):
+        if not self.wall:
+            c.create_rectangle(self.i*pixel,
+                               self.j*pixel,
+                               self.i*pixel + pixel,
+                               self.j*pixel + pixel,
+                               **kwargs)
+        else:
+            c.create_rectangle(self.i*pixel,
+                               self.j*pixel,
+                               self.i*pixel + pixel,
+                               self.j*pixel + pixel,
+                               fill='black')
+
+    def draw_line(self, **kwargs):
+        if self.previous:
+            c.create_line(self.previous.x,
+                          self.previous.y,
+                          self.x,
+                          self.y,
+                          **kwargs)
+
+
+    def addNeighbors(self):
+        i = self.i
+        j = self.j
+        if i < rows - 1:
+            self.neighbors.append(grid[i+1][j])
+            if j > 0: self.neighbors.append(grid[i+1][j-1])
+            if j < cols - 1: self.neighbors.append(grid[i+1][j+1])
+        if i > 0:
+            self.neighbors.append(grid[i-1][j])
+            if j > 0: self.neighbors.append(grid[i-1][j-1])
+            if j < cols - 1: self.neighbors.append(grid[i-1][j+1])
+        if j < cols - 1: self.neighbors.append(grid[i][j+1])
+        if j > 0: self.neighbors.append(grid[i][j-1])
+
+    def getNeighbors(self):
+        if len(self.neighbors) > 0:
+            return self.neighbors
+        else:
+            self.addNeighbors()
+            return self.neighbors
+
+
+def get_run(event):
+    # get global values of vars
+    global points, c, src, dst
+
+    # get source vertex
+    if points == 2:
+        src = grid[event.x // pixel][event.y // pixel]
+        # ignore input if its wall
+        if src.wall:
+            return
+        src.show(fill='blue')
+        points -= 1
+
+    # get destination vertex
+    elif points == 1:
+        dst = grid[event.x // pixel][event.y // pixel]
+        if dst.wall:
+            return
+        dst.show(fill='green')
+        points -= 1
+
+        # run A* Path Finder
+        Astar = AStarPathFinder(src, dst)
         while True:
+            thread = returnableThread(target=Astar.step)
+            thread.start()
 
-            current_node = OPEN[0]
-            for node in OPEN:
-                if node.Fcost < current_node.Fcost or (node.Fcost == current_node.Fcost and node.heuristic < current_node.heuristic):
-                    current_node = node
-            OPEN.remove(current_node)
-            CLOSED.append(current_node)
-            
-            if current_node.end == True:
-                print("End node found.")
-                current_node.find_path()
-                return
-            
-            current_node.button.config(bg = "pink")
-            root.update_idletasks()
-            time.sleep(0.1)
-            
-            neighbours = current_node.neighbours()
-            for neighbour in neighbours:
-                if neighbour.barrier == True or neighbour in CLOSED:
-                    continue
-                new_movement_cost = current_node.Gcost + current_node.get_distance(neighbour)
-                if new_movement_cost < neighbour.Gcost or neighbour not in OPEN:
-                    neighbour.Gcost = new_movement_cost
-                    neighbour.heuristic = neighbour.get_distance(node_list[xe][ye])
-                    neighbour.parent = current_node
-                    
-                    neighbour.button.config(bg = "purple")
-                    root.update_idletasks()
-                    time.sleep(0.1)
-                    OPEN.append(neighbour)
+            val = thread.join()
 
-    def find_path(self):
-        '''
-        Traces a path from end node to start node
-        '''
-        current = self
-        
-        while current.start == False:
-            parent = current.parent
-            
-            parent.button.config(bg = "grey")
-            root.update_idletasks()
-            time.sleep(0.1)
+            # backtrack path from current node
+            Astar.backtrack()
 
-            current = parent
+            if val:
+                break
 
-if __name__ == "__main__":    
-    node_list = []
-    for x in range(WIDTH):
-        row_list = [Node(x, y) for y in range(WIDTH)]
-        node_list.append(row_list)
-    
-    start_button = tk.Button(menu_frame, text = "START", 
-    command = Node.pathfinding, 
-    cnf = node_styling,
-    font = font,
-    pady = 3).grid(row = 21, column = 0, columnspan =20, sticky = tk.NSEW, pady = 1)
-    
-    quit_button = tk.Button(menu_frame, text = "EXIT", 
-    command = root.destroy, 
-    cnf = node_styling,
-    font = font,
-    pady = 3).grid(row = 22, column = 0, columnspan =20, sticky = tk.NSEW, pady = 1)
-    
-    root.tk.mainloop()
+            # update canvas at each step
+            c.update()
+    else: pass
+
+top = tk.Tk()
+
+c = tk.Canvas(top, width=width, height=height)
+c.pack()
+
+c.bind("<Button-1>", get_run)
+grid = [[Node(i, j, walldensity) for j in range(cols)] for i in range(rows)]
+
+for i in range(rows):
+    for j in range(cols):
+        if showoc:
+            grid[i][j].show(fill='white')
+        else:
+            grid[i][j].show(fill='white', outline='')
+
+tk.mainloop()
