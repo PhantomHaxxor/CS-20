@@ -1,103 +1,22 @@
 #!/usr/bin/python
 import tkinter as tk
-from threading import Thread
-from random import random
-from astar import *
+from tkinter import messagebox
 
-# two points as user input (source cell and destination cell)
-points = 2
+#
+import algorithm
+import constants
 
-# windows size (height x width)
-height = 500
-width = 500
-
-# size of each cell(in pixels) in grid
-pixel = 10
-
-# grid (rows x cols)
-rows = height // pixel
-cols = width // pixel
-
-# show open and closed list
-showoc = True
-
-# walls 0 <= x < 1
-walldensity = 0.3
-
-class returnableThread(Thread):
-    def __init__(self, group=None, target=None, name=None,
-                 args=(), kwargs={}):
-        Thread.__init__(self, group, target, name, args, kwargs)
-        self._return = None
-    def run(self):
-        if self._Thread__target is not None:
-            self._return = self._Thread__target(*self._Thread__args,
-                                                **self._Thread__kwargs)
-    def join(self):
-        Thread.join(self)
-        return self._return
-
-class Node(object):
-    def __init__(self, i, j, walldens=0.2):
-        self.i = i
-        self.j = j
-        self.x = i*pixel + pixel//2
-        self.y = j*pixel + pixel//2
-
-        self.f = 0
-        self.g = 0
-        self.h = 0
-
-        self.neighbors = []
-        self.previous = None
-        self.wall = False
-
-        if random() < walldens:
-            self.wall = True
-
-    def show(self, **kwargs):
-        if not self.wall:
-            c.create_rectangle(self.i*pixel,
-                               self.j*pixel,
-                               self.i*pixel + pixel,
-                               self.j*pixel + pixel,
-                               **kwargs)
-        else:
-            c.create_rectangle(self.i*pixel,
-                               self.j*pixel,
-                               self.i*pixel + pixel,
-                               self.j*pixel + pixel,
-                               fill='black')
-
-    def draw_line(self, **kwargs):
-        if self.previous:
-            c.create_line(self.previous.x,
-                          self.previous.y,
-                          self.x,
-                          self.y,
-                          **kwargs)
+pixel = constants.pixel
 
 
-    def addNeighbors(self):
-        i = self.i
-        j = self.j
-        if i < rows - 1:
-            self.neighbors.append(grid[i+1][j])
-            if j > 0: self.neighbors.append(grid[i+1][j-1])
-            if j < cols - 1: self.neighbors.append(grid[i+1][j+1])
-        if i > 0:
-            self.neighbors.append(grid[i-1][j])
-            if j > 0: self.neighbors.append(grid[i-1][j-1])
-            if j < cols - 1: self.neighbors.append(grid[i-1][j+1])
-        if j < cols - 1: self.neighbors.append(grid[i][j+1])
-        if j > 0: self.neighbors.append(grid[i][j-1])
+def reset():
+    global points, src, dst
+    points = 2
+    src = None
+    dst = None
 
-    def getNeighbors(self):
-        if len(self.neighbors) > 0:
-            return self.neighbors
-        else:
-            self.addNeighbors()
-            return self.neighbors
+    window.destroy()
+    main()
 
 
 def get_run(event):
@@ -122,36 +41,37 @@ def get_run(event):
         points -= 1
 
         # run A* Path Finder
-        Astar = AStarPathFinder(src, dst)
+        Astar = algorithm.astar(src, dst)
         while True:
-            thread = returnableThread(target=Astar.step)
-            thread.start()
+            ret = Astar.step(True) # true allows visualization
+            if ret:
+                retry = messagebox.askquestion("Retry", "Found Path, Would you like to try again?")
+                if retry == "yes":
+                    reset()
+                    break
+                else:
+                    exit()
 
-            val = thread.join()
-
-            # backtrack path from current node
-            Astar.backtrack()
-
-            if val:
-                break
-
-            # update canvas at each step
             c.update()
     else: pass
 
-top = tk.Tk()
+def main():
+    global window
+    window = tk.Tk()
 
-c = tk.Canvas(top, width=width, height=height)
-c.pack()
+    global c
+    c = tk.Canvas(window, width=width, height=height)
+    c.pack()
 
-c.bind("<Button-1>", get_run)
-grid = [[Node(i, j, walldensity) for j in range(cols)] for i in range(rows)]
+    c.bind("<Button-1>", get_run)
+    global grid
+    grid = [[Node(i, j, walldensity) for j in range(cols)] for i in range(rows)]
 
-for i in range(rows):
-    for j in range(cols):
-        if showoc:
-            grid[i][j].show(fill='white')
-        else:
-            grid[i][j].show(fill='white', outline='')
+    for i in range(rows):
+        for j in range(cols):
+            grid[i][j].show(fill='#5865F2')
 
-tk.mainloop()
+    tk.mainloop()
+
+if __name__ == '__main__':
+    main()

@@ -1,6 +1,6 @@
 from math import sqrt
 
-class AStarPathFinder(object):
+class astar(object):
     def __init__(self, start, end):
         self.lastCheckedNode = start
         self.openSet = []
@@ -16,16 +16,6 @@ class AStarPathFinder(object):
     def removeFromArray(self, arr, elt):
         if elt in arr: arr.remove(elt)
 
-    def backtrack(self):
-        path = []
-        temp = self.current
-        path.append(temp)
-        while temp.previous:
-            path.append(temp.previous)
-            temp = temp.previous
-        for node in path:
-            node.draw_line(fill='magenta', width=3)
-
     def step(self, showoc=False):
         # show open and closed list
         if showoc:
@@ -35,7 +25,7 @@ class AStarPathFinder(object):
                 node.show(fill='red')
         else:
             for node in self.closedSet.keys():
-                node.show(fill='white', outline = 'white')
+                node.show(fill='red', outline = 'white')
         
         if len(self.openSet) > 0:
             winner = 0
@@ -49,8 +39,7 @@ class AStarPathFinder(object):
             self.current = self.openSet[winner]
             self.lastCheckedNode = self.current
 
-            if self.current == self.end:
-                print("Done!")                  
+            if self.current == self.end:               
                 return True
 
             self.removeFromArray(self.openSet, self.current)
@@ -77,5 +66,4 @@ class AStarPathFinder(object):
 
             return False
         else:
-            print("No solution!")
             return -1
