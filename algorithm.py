@@ -10,23 +10,24 @@ class astar(object):
         self.end = end
         self.current = start
 
+        self.Total = len(self.openSet)
+
     def heuristic(self, a, b):
         return sqrt((a.x-b.x)**2 + (a.y-b.y)**2)
 
     def removeFromArray(self, arr, elt):
         if elt in arr: arr.remove(elt)
 
-    def step(self, showoc=False):
-        # show open and closed list
-        if showoc:
-            for node in self.openSet:
-                node.show(fill='yellow')
-            for node in self.closedSet.keys():
-                node.show(fill='red')
-        else:
-            for node in self.closedSet.keys():
-                node.show(fill='red', outline = 'white')
-        
+    def visualize(self):
+        for node in self.openSet:
+            node.show(fill='yellow')
+        for node in self.closedSet.keys():
+            node.show(fill='red')
+
+    def step(self, visualize=False):
+        if visualize:
+           self.visualize()
+           
         if len(self.openSet) > 0:
             winner = 0
             for i in range(1, len(self.openSet)):

@@ -1,4 +1,11 @@
-class Node(object):
+import random
+import data
+
+pixel = data.pixel
+rows = data.rows
+cols = data.cols
+
+class new(object):
     def __init__(self, i, j, walldens=0.2):
         self.i = i
         self.j = j
@@ -13,18 +20,18 @@ class Node(object):
         self.previous = None
         self.wall = False
 
-        if random() < walldens:
+        if random.random() < walldens:
             self.wall = True
 
     def show(self, **kwargs):
         if not self.wall:
-            c.create_rectangle(self.i*pixel,
+            data.canvas.create_rectangle(self.i*pixel,
                                self.j*pixel,
                                self.i*pixel + pixel,
                                self.j*pixel + pixel,
                                **kwargs)
         else:
-            c.create_rectangle(self.i*pixel,
+            data.canvas.create_rectangle(self.i*pixel,
                                self.j*pixel,
                                self.i*pixel + pixel,
                                self.j*pixel + pixel,
@@ -32,14 +39,14 @@ class Node(object):
 
     def draw_line(self, **kwargs):
         if self.previous:
-            c.create_line(self.previous.x,
+            data.canvas.create_line(self.previous.x,
                           self.previous.y,
                           self.x,
                           self.y,
                           **kwargs)
 
-
     def addNeighbors(self):
+        grid = data.grid
         i = self.i
         j = self.j
         if i < rows - 1:

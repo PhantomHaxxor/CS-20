@@ -3,18 +3,24 @@ import tkinter as tk
 from tkinter import messagebox
 
 #
+import Node
 import algorithm
-import constants
+import data
 
-pixel = constants.pixel
-
+pixel = data.pixel
+points = data.points
+height = data.height
+width = data.width
+rows = data.rows
+cols = data.cols
+walldensity = data.walldensity
+grid = data.grid
 
 def reset():
     global points, src, dst
     points = 2
     src = None
     dst = None
-
     window.destroy()
     main()
 
@@ -25,7 +31,7 @@ def get_run(event):
 
     # get source vertex
     if points == 2:
-        src = grid[event.x // pixel][event.y // pixel]
+        src = data.grid[event.x // pixel][event.y // pixel]
         # ignore input if its wall
         if src.wall:
             return
@@ -34,7 +40,7 @@ def get_run(event):
 
     # get destination vertex
     elif points == 1:
-        dst = grid[event.x // pixel][event.y // pixel]
+        dst = data.grid[event.x // pixel][event.y // pixel]
         if dst.wall:
             return
         dst.show(fill='green')
@@ -52,24 +58,22 @@ def get_run(event):
                 else:
                     exit()
 
-            c.update()
+            data.canvas.update()
     else: pass
 
 def main():
     global window
     window = tk.Tk()
 
-    global c
-    c = tk.Canvas(window, width=width, height=height)
-    c.pack()
+    data.canvas = tk.Canvas(window, width=width, height=height)
+    data.canvas.pack()
 
-    c.bind("<Button-1>", get_run)
-    global grid
-    grid = [[Node(i, j, walldensity) for j in range(cols)] for i in range(rows)]
+    data.canvas.bind("<Button-1>", get_run)
+    data.grid = [[Node.new(i, j, walldensity) for j in range(cols)] for i in range(rows)]
 
     for i in range(rows):
         for j in range(cols):
-            grid[i][j].show(fill='#5865F2')
+            data.grid[i][j].show(fill='#5865F2')
 
     tk.mainloop()
 

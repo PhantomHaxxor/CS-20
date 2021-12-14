@@ -5,3 +5,5 @@ width = 500
 rows = height // pixel
 cols = width // pixel
 walldensity = 0.3
+grid = []
+canvas = None
