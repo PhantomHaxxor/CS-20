@@ -1,16 +1,15 @@
 from math import sqrt
 
-class astar(object):
+class Astar(object):
     def __init__(self, start, end):
         self.lastCheckedNode = start
         self.openSet = []
-        self.openSet.append(start)
         self.closedSet = {}
+        self.openSet.append(start)
+        
         self.start = start
         self.end = end
         self.current = start
-
-        self.Total = len(self.openSet)
 
     def heuristic(self, a, b):
         return sqrt((a.x-b.x)**2 + (a.y-b.y)**2)
@@ -19,8 +18,6 @@ class astar(object):
         if elt in arr: arr.remove(elt)
 
     def visualize(self):
-        for node in self.openSet:
-            node.show(fill='yellow')
         for node in self.closedSet.keys():
             node.show(fill='red')
 

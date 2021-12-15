@@ -5,7 +5,7 @@ pixel = data.pixel
 rows = data.rows
 cols = data.cols
 
-class new(object):
+class Node(object):
     def __init__(self, i, j, walldens=0.2):
         self.i = i
         self.j = j
@@ -24,18 +24,24 @@ class new(object):
             self.wall = True
 
     def show(self, **kwargs):
+        pixel1 = self.j*pixel
+        pixel2 = self.i*pixel
         if not self.wall:
-            data.canvas.create_rectangle(self.i*pixel,
-                               self.j*pixel,
-                               self.i*pixel + pixel,
-                               self.j*pixel + pixel,
-                               **kwargs)
+            data.canvas.create_rectangle(
+                self.i*pixel,
+                self.j*pixel,
+                self.i*pixel + pixel,
+                self.j*pixel + pixel,
+                **kwargs
+            )
         else:
-            data.canvas.create_rectangle(self.i*pixel,
-                               self.j*pixel,
-                               self.i*pixel + pixel,
-                               self.j*pixel + pixel,
-                               fill='#2C2F33')
+            data.canvas.create_rectangle(
+                self.i*pixel,
+                self.j*pixel,
+                self.i*pixel + pixel,
+                self.j*pixel + pixel,
+                fill='#2C2F33'
+            )
 
     def draw_line(self, **kwargs):
         if self.previous:

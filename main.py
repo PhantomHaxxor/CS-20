@@ -3,8 +3,8 @@ import tkinter as tk
 from tkinter import messagebox
 
 #
-import Node
-import algorithm
+from Node import Node
+from Algorithm import Astar
 import data
 
 pixel = data.pixel
@@ -23,7 +23,6 @@ def reset():
     dst = None
     window.destroy()
     main()
-
 
 def get_run(event):
     # get global values of vars
@@ -47,9 +46,9 @@ def get_run(event):
         points -= 1
 
         # run A* Path Finder
-        Astar = algorithm.astar(src, dst)
+        currentAlgorithm = Astar(src, dst)
         while True:
-            ret = Astar.step(True) # true allows visualization
+            ret = currentAlgorithm.step(True) # true allows visualization
             if ret:
                 retry = messagebox.askquestion("Retry", "Found Path, Would you like to try again?")
                 if retry == "yes":
@@ -69,7 +68,7 @@ def main():
     data.canvas.pack()
 
     data.canvas.bind("<Button-1>", get_run)
-    data.grid = [[Node.new(i, j, walldensity) for j in range(cols)] for i in range(rows)]
+    data.grid = [[Node(i, j, walldensity) for j in range(cols)] for i in range(rows)]
 
     for i in range(rows):
         for j in range(cols):
