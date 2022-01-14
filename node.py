@@ -57,14 +57,20 @@ class Node(object):
         j = self.j
         if i < rows - 1:
             self.neighbors.append(grid[i+1][j])
-            if j > 0: self.neighbors.append(grid[i+1][j-1])
-            if j < cols - 1: self.neighbors.append(grid[i+1][j+1])
+            if j > 0: 
+                self.neighbors.append(grid[i+1][j-1])
+            if j < cols - 1: 
+                self.neighbors.append(grid[i+1][j+1])
         if i > 0:
             self.neighbors.append(grid[i-1][j])
-            if j > 0: self.neighbors.append(grid[i-1][j-1])
-            if j < cols - 1: self.neighbors.append(grid[i-1][j+1])
-        if j < cols - 1: self.neighbors.append(grid[i][j+1])
-        if j > 0: self.neighbors.append(grid[i][j-1])
+            if j > 0: 
+                self.neighbors.append(grid[i-1][j-1])
+            if j < cols - 1: 
+                self.neighbors.append(grid[i-1][j+1])
+        if j < cols - 1: 
+            self.neighbors.append(grid[i][j+1])
+        if j > 0: 
+            self.neighbors.append(grid[i][j-1])
 
     def getNeighbors(self):
         if len(self.neighbors) > 0:
