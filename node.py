@@ -23,7 +23,7 @@ class Node(object):
         if random.random() < walldens:
             self.wall = True
 
-    def show(self, **kwargs):
+    def show(self, **remainingArgs):
         pixel1 = self.j*pixel
         pixel2 = self.i*pixel
         if not self.wall:
@@ -32,7 +32,7 @@ class Node(object):
                 self.j*pixel,
                 self.i*pixel + pixel,
                 self.j*pixel + pixel,
-                **kwargs
+                **remainingArgs
             )
         else:
             data.canvas.create_rectangle(
@@ -43,13 +43,13 @@ class Node(object):
                 fill='#2C2F33'
             )
 
-    def draw_line(self, **kwargs):
+    def draw_line(self, **remainingArgs):
         if self.previous:
             data.canvas.create_line(self.previous.x,
                           self.previous.y,
                           self.x,
                           self.y,
-                          **kwargs)
+                          **remainingArgs)
 
     def addNeighbors(self):
         grid = data.grid

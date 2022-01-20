@@ -3,8 +3,8 @@ import tkinter as tk
 from tkinter import messagebox
 
 #
-from Node import Node
-from Algorithm import Astar
+from node import Node
+from algorithm import Astar
 import data
 
 pixel = data.pixel
@@ -25,19 +25,15 @@ def reset():
     main()
 
 def get_run(event):
-    # get global values of vars
     global points, c, src, dst
 
-    # get source vertex
     if points == 2:
         src = data.grid[event.x // pixel][event.y // pixel]
-        # ignore input if its wall
         if src.wall:
             return
         src.show(fill='blue')
         points -= 1
 
-    # get destination vertex
     elif points == 1:
         dst = data.grid[event.x // pixel][event.y // pixel]
         if dst.wall:
